@@ -1,0 +1,51 @@
+<div class="card gedf-card" *ngFor="let item of list;index as i">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="mr-2">
+                    <img class="rounded-circle" width="45" src="../assets/images/{{item.imagename}}" alt="">
+                </div>
+                <div class="ml-2">
+                    <div class="h5 m-0">@ {{item.userName}}</div>
+                    <div class="h7 m-0">{{item.firstName}}&nbsp;{{item.lastName}}</div>
+                </div>
+            </div>
+            <div>
+                <div class="h7 mb-2">{{ item.tweetDate | date:'shortDate'}} ago <i class="fa fa-clock-o"></i></div>
+              </div>
+          </div>
+  
+      </div>
+      <div class="card-body">
+          <p class="card-text">
+              {{item.tweets}}
+          </p>
+      </div>
+      <div class="card-footer">
+          <a class="card-link"><button class="btn btn-default" (click)="GetLikes(item)" style="color: red;"><i class="fa fa-gittip"></i> </button>Like({{item.likes}})</a>
+          <a class="card-link"><button class="btn btn-default" (click)=" isCommentClicked(i)"><button class="btn btn-default" (click)="Comments(item)" style="color: black;"><i class="fa fa-comment"></i></button> Comments</button></a>
+          <div *ngIf="clickedButton[i]">
+              <div class="card-body">
+                  <form [formGroup]="form" align="center">
+                  <div class="form-group">
+                  <textarea class="form-control" formControlName="comment" id="message" rows="1" placeholder="New Comment" style="border-radius: none;"></textarea>
+                  </div>
+                  </form>
+                  <button type="button" class="btn btn-small btn-default" (click)="PostComments(item)">Reply</button>
+                  <div class="card-footer">
+                      <div class="card-text" *ngFor="let comments of commentslist">
+                          <div class="mr-2">
+                              <img class="rounded-circle" width="35" src="../assets/images/{{comments.imageName}}" alt="">@ {{comments.username}}&nbsp;&nbsp;
+                          </div>
+                          <p class="card-text">
+                              {{comments.comments}}
+                          </p>
+                          <div class="h7 mb-2">{{ comments.date | date:'shortDate'}} <i class="fa fa-clock-o"></i></div>
+                          &nbsp;
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  

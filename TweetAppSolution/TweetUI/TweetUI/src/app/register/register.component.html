@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>RegistrationForm</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	</head>
+
+	<body>
+        <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+            <div class="container">
+              <div class="card login-card">
+                <div class="row no-gutters">
+                    <div class="col-md-6">
+                        <img src="../assets/images/gradient2.jpg" alt="login" class="login-card-img">
+                    </div>
+        <div class="col-md-6">
+        <div class="card-body">
+		<div class="wrapper">
+			<div class="inner">
+        <div class="text-center">
+          <p *ngIf="passwordLength" style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px"><b>password</b> should be greater than 6 and less than 12 characters </p>
+          <p *ngIf="prePasswordCheck" style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px">Enter <b>password</b> first</p>
+          <p *ngIf="passwordValidation" style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px"><b>Password</b> didn't matched</p>
+          <p *ngIf="emailValid" style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px">Enter Valid <b>Email</b> Id</p>
+      </div>
+                <form [formGroup]="userForm" (ngSubmit)="onSubmitUser()" align="center">
+                    <div class="brand-wrapper">
+                        <img src="../assets/images/logo.png" width= 100% height= 40% class="d-inline-block align-top" alt="">
+                    <!-- <span style="color:black;font-size:25px;font-weight: bold;"> TWEET APP</span> -->
+                      </div>
+						<div class="form-group">
+                        <label for="firstname" class="sr-only">FirstName</label>
+                        <input type="text" formControlName="firstname" placeholder="FirstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
+                        <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                            <div *ngIf="f.firstname.errors.required">FirstName is required</div>
+                        </div>                  
+                    </div>
+                      <div class="form-group mb-4">
+                        <label for="lastname" class="sr-only">LastName</label>
+                        <input type="lastname"formControlName="lastname" placeholder="LastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />                
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="username" class="sr-only">Pick a UserID</label>
+                        <input type="text"formControlName="username" placeholder="Username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                            <div *ngIf="f.username.errors.required">Username is required</div>
+                        </div>                  
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="contactnumber" class="sr-only">ContactNumber</label>
+                        <input type="text"formControlName="contactnumber" placeholder="ContactNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.contactnumber.errors }" />
+                        <div *ngIf="submitted && f.contactnumber.errors" class="invalid-feedback">
+                            <div *ngIf="f.contactnumber.errors.required">ContactNumber is required</div>
+                        </div>                  
+                    </div>
+                    <div class="form-group">
+                        <label for="emailid" class="sr-only">Emailid</label>
+                        <input class="mb-4 form-control" formControlName="emailid"[ngClass]="{ 'is-invalid': submitted && f.emailid.errors }" [ngClass]="{'warningOutline' : emailValid}" type="text" (keyup) ="emailValidation(emailid)" #emailid name="emailid" placeholder="Enter a valid email address">
+                        <div *ngIf="submitted && f.emailid.errors" class="invalid-feedback">
+                            <div *ngIf="f.emailid.errors.required">Email id  is required</div>
+                        </div>                     
+                    </div>
+                      <div class="form-group mb-4">
+                        <label for="password" class="sr-only">Password</label>
+                        <input class="mb-4 form-control" formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" (keyup)="checkPrePassword(password)" #password name="password" placeholder="Enter password">
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                        </div>                
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="confirmpassword" class="sr-only">ConfirmPassword</label>
+                        <input class="mb-4 form-control" formControlName="confirmpassword" type="password"[ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }" [ngClass]="{'warningOutline' : passwordValidation}" (keyup)="checkPassword(password,confirmpassword)" #confirmpassword name="confirmpassword" placeholder="Enter password again"> 
+                        <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
+                            <div *ngIf="f.confirmpassword.errors.required">Password is required</div>
+                        </div>               
+                    </div>
+                    <div class="form-group mb-4">
+                        <label>ProfilePic</label>
+                        <input type="file" formControlName="imagename" name="imagename"  (change)="fileEvent($event)" />                
+                    </div>
+                      <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit" value="REGISTER">
+				</form>
+			</div>
+		</div>
+    </div>
+        </div>
+                </div>
+              </div>
+        </div>
+        </main>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+</body>
+</html>

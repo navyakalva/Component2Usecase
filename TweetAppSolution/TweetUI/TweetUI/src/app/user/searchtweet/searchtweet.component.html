@@ -1,0 +1,103 @@
+<body>
+<div id="wrapper" class="animate">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-5 shadow">
+        <div class="container">
+          <a class="navbar-brand"><img src="..\assets\images\Logo.jpg" height="30px" width="40px" style="border :none;"></a>
+          <form [formGroup] = "form" class="form-inline my-2 my-lg-0" (ngSubmit) = "Search()"> <input id="search" class="form-control mr-sm-2" formControlName = "username" class="form-control" type="text" placeholder="Search"> <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button> </form>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" [routerLink]="'/USER'" routerLinkActive="router-link-active"><i class="fa fa-home"></i>Home
+                      <span class="sr-only">(current)</span>
+                    </a>
+              </li>
+              <li class="nav-item">
+                  <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                  aria-expanded="false" style="color: black;">
+                                  <i class="fa fa-user"></i> Me
+                              </button>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+                      <a class="dropdown-item" routerLink="/CHANGEPASSWORD" routerLinkActive="router-link-active"><i class="fa fa-cog"></i> Settings and Privacy</a>
+                      <a class="dropdown-item" routerLink="/VIEW PROFILE" routerLinkActive="router-link-active"><i class="fa fa-user"></i> Profile</a>
+                      <a class="dropdown-item" [routerLink]="'/HOME'" routerLinkActive="router-link-active" (click)="logout()"><i class="fa fa-sign-out"></i> LogOut</a>
+                  </div>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <br><br><br>
+      <div class="container-fluid gedf-wrapper">
+        <div class="row">
+            <div class="col-md-3">
+                    <!--Profile -->
+  <div class="card gedf-card">
+      <div class="card-header" style="background-color: darkgrey;height: 60px;"></div>
+      <div class="card-body">
+          <div class="center" style="text-align: center;">
+            <a class="card-link">
+                <img class="img-center" src="../assets/images/{{user.imageName}}" text-align="center"/>
+                <h5 class="card-title" text-align="center">{{user.username}}</h5>
+            </a>
+          </div>
+      </div>
+      </div>
+            </div>
+            <div class="col-md-6 gedf-main">
+                <div class="card gedf-card" *ngFor="let item of list;index as i">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="mr-2">
+                                    <img class="rounded-circle" width="45" src="../assets/images/{{user.imageName}}" alt="">
+                                </div>
+                                <div class="ml-2">
+                                    <div class="h5 m-0">@{{user.username}}</div>
+                                    <div class="h7">{{item.firstName}}&nbsp;{{item.lastName}}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="h7 mb-2">{{ item.tweetDate | date:'shortDate'}} ago <i class="fa fa-clock-o"></i></div>
+                              </div>
+                          </div>
+                  
+                      </div>
+                      <div class="card-body">
+                          <p class="card-text">
+                              {{item.tweets}}
+                          </p>
+                      </div>
+                      <div class="card-footer">
+                          <a class="card-link"><button class="btn btn-default" (click)="GetLikes(item)" style="color: red;"><i class="fa fa-gittip"></i> </button>Like({{item.likes}})</a>
+                          <a class="card-link"><button class="btn btn-default" (click)=" isCommentClicked(i)"><button class="btn btn-default" (click)="Comments(item)"><i class="fa fa-comment"></i></button> Comments</button></a>
+                          <div *ngIf="clickedButton[i]">
+                              <div class="card-body">
+                                  <form [formGroup]="form" align="center">
+                                  <div class="form-group">
+                                  <textarea class="form-control" formControlName="comment" id="message" rows="1" placeholder="New Comment" style="border-radius: none;"></textarea>
+                                  </div>
+                                  </form>
+                                  <button type="button" class="btn btn-small btn-default" (click)="PostComments(item)">Reply</button>
+                                  <div class="card-footer">
+                                      <div class="card-text" *ngFor="let comments of commentslist">
+                                          <div class="mr-2">
+                                              <img class="rounded-circle" width="35" src="../assets/images/{{comments.imageName}}" alt="">@ {{comments.username}}&nbsp;&nbsp;
+                                          </div>
+                                          <p class="card-text">
+                                              {{comments.comments}}
+                                          </p>
+                                          <div class="text-muted h7 mb-2">{{ comments.date | date:'shortDate'}} <i class="fa fa-clock-o"></i></div>
+                                          &nbsp;
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+            </div>
+        </div></div>
+</div></body>
